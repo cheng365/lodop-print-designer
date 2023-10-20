@@ -1,0 +1,42 @@
+{
+  "name": "lodop-print-designer",
+  "version": "1.0.0",
+  "description": "一个基于Vue、ElementUi、Lodop的打印模板设计器。实现打印模板的设计、预览和打印功能。",
+  "publish": true,
+  "main": "lib/lodop-print-designer.umd.min.js",
+  "files": [
+    "/lib"
+  ],
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lib": "vue-cli-service build --target lib src/index.js --name lodop-print-designer --dest lodop-print-designer/lib && node copyFile.js"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.0.0",
+    "@vue/cli-service": "^4.0.0",
+    "babel-eslint": "^10.0.3",
+    "babel-plugin-component": "^1.1.1",
+    "element-ui": "2.13.2",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2",
+    "vue": "^2.6.11",
+    "vue-router": "^3.4.8",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "keywords": [
+    "lodop-print-designer"
+  ],
+  "author": {
+    "name": "orange",
+    "email": "chencheng365@126.com"
+  },
+  "license": "MIT"
+}

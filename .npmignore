@@ -1,0 +1,13 @@
+# 忽略目录
+example/
+dist/
+src/
+node_modules/
+.vscode/
+
+# 忽略指定文件
+vue.config.js
+babel.config.js
+.eslintrc.js
+.editorconfig
+*.map
