@@ -126,6 +126,7 @@
       </el-collapse>
     </section>
     <div class="section">
+      <el-input v-model="url" clearable placeholder="请输入远程电脑IP，在此之前先确保远程电脑上已安装C-Lodop插件，为空时获取当前电脑上所连接的打印机"></el-input>
       <el-button type="warning" @click="getPrinters">获取打印机列表，请看控制台</el-button>
     </div>
   </div>
@@ -151,6 +152,7 @@ export default {
       value: {},
       tempList: [],
       form: defaultTemp(),
+      url: '127.0.0.1',
       rules: {
         title: { required: true, message: '请输入模板名称' },
         type: { required: true, message: '请选择模板类型' },
@@ -258,7 +260,7 @@ export default {
     },
     // 获取打印机列表
     getPrinters() {
-      this.$lodop.getPrinters().then(res=> {
+      this.$lodop.getPrinters(this.url).then(res=> {
         console.log('打印机列表--->', res);
       })
     },

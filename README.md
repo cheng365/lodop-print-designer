@@ -49,7 +49,7 @@ lodop 打印/预览及设置 lodop 注册信息方法使用
 
 ```javascript
 // 直接打印
-this.$lodop.print(temp, data);
+this.$lodop.print(temp, data, beforePrintMethod);
 
 // 预览打印内容
 this.$lodop.preview(temp, data);
@@ -60,7 +60,7 @@ this.$lodop.previewTemp(temp);
 // 设置Lodop产品注册信息
 this.$lodop.setLicenses(licenseInfo);
 
-// 获取打印机列表
+// 获取打印机列表，可根据IP获取远程电脑上的打印机
 this.$lodop.getPrinters();
 ```
 
@@ -379,11 +379,11 @@ widgetOptions 为设计打印模板的打印项配置， 打印项有多种类�
 
 | 名称        | 说明                                 | 参数                               |
 | ----------- | ------------------------------------ | ---------------------------------- |
-| print       | 对数据和模板解析，实现打印           | Function(temp: object, data:array) |
+| print       | 对数据和模板解析，实现打印，打印之前会执回调函数           | Function(temp: object, data:array, beforePrintMethod:Function) |
 | preview     | 对数据和模板解析，实现打印内容的预览 | Function(temp: object, data:array) |
 | previewTemp | 对模板进行预览                       | Function(temp: object )            |
 | setLicenses | 设置 Lodop 软件产品注册信息          | Function(licenseInfo: object )     |
-| getPrinters | 获取当前电脑打印机列表，返回Promise(array)      | /  |
+| getPrinters | 获取 当前/远程 电脑打印机列表，返回object      | 127.0.0.1  |
 
 ### setLicenses 方法详解
 
