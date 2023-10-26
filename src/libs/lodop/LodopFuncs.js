@@ -1,13 +1,15 @@
 ﻿//==本JS是加载Lodop插件或Web打印服务CLodop/Lodop7的综合示例，可直接使用，建议理解后融入自己程序==
 import { MessageBox } from 'element-ui'
 //用双端口加载主JS文件Lodop.js(或CLodopfuncs.js兼容老版本)以防其中某端口被占:
-var MainJS ="CLodopfuncs.js",
-    URL_WS1   = "ws://localhost:8000/"+MainJS,                //ws用8000/18000
-    URL_WS2   = "ws://localhost:18000/"+MainJS,
-    URL_HTTP1 = "http://localhost:8000/"+MainJS,              //http用8000/18000
-    URL_HTTP2 = "http://localhost:18000/"+MainJS,
-    URL_HTTP3 = "https://localhost.lodop.net:8443/"+MainJS;   //https用8000/8443
 
+function setJsUrl(remoteIp = 'localhost') {
+  var MainJS ="CLodopfuncs.js"
+  window.URL_WS1   = "ws://" + remoteIp + ":8000/"+MainJS,                //ws用8000/18000
+  window.URL_WS2   = "ws://" + remoteIp + ":18000/"+MainJS,                //ws用8000/18000
+  window.URL_HTTP1 = "http://" + remoteIp + ":8000/"+MainJS,              //http用8000/18000
+  window.URL_HTTP2 = "http://" + remoteIp + ":18000/"+MainJS,
+  window.URL_HTTP3 = "https://" + remoteIp +  ".lodop.net:8443/"+MainJS;   //https用8000/8443
+}
 var CreatedOKLodopObject, CLodopIsLocal, LoadJsState;
 
 //==判断是否需要CLodop(那些不支持插件的浏览器):==
@@ -58,9 +60,14 @@ function checkOrTryHttp() {
      ,JS2 = document.createElement("script")
      ,JS3 = document.createElement("script");
   JS1.src = URL_HTTP1;
+  JS1.id = 'lodop';
   JS2.src = URL_HTTP2;
+  JS2.id = 'lodop';
   JS3.src = URL_HTTP3;
-  JS1.onload = JS2.onload = JS3.onload = JS2.onerror = JS3.onerror=function(){LoadJsState = "complete";}
+  JS3.id = 'lodop';
+  JS1.onload = JS2.onload = JS3.onload = JS2.onerror = JS3.onerror=function(){
+    LoadJsState = "complete"
+  }
   JS1.onerror = function(e) {
       if (window.location.protocol !== 'https:')
           head.insertBefore(JS2, head.firstChild); else
@@ -68,9 +75,7 @@ function checkOrTryHttp() {
   }
   head.insertBefore(JS1,head.firstChild);
 }
-
-//==加载Lodop对象的主过程:==
-(function loadCLodop(){
+function loadCLodop(){
   if (!needCLodop()) return;
   CLodopIsLocal = !!((URL_WS1 + URL_WS2).match(/\/\/localho|\/\/127.0.0./i));
   LoadJsState = "loadingA";
@@ -89,7 +94,9 @@ function checkOrTryHttp() {
   } catch(e){
     checkOrTryHttp();
   }
-})();
+}
+//==加载Lodop对象的主过程:==
+(function(){ setJsUrl(); loadCLodop() })()
 
 //==获取LODOP对象主过程,判断是否安装、需否升级:==
 function getLodop2(oOBJECT, oEMBED) {
@@ -194,8 +201,18 @@ function getLodop2(oOBJECT, oEMBED) {
         alert("getLodop出错:" + err);
     }
 }
-function lodopExample() {
+function lodopExample(ip) {
  return new Promise((resolve, reject) => {
+  if (ip) {
+    const dom = document.getElementById('lodop')
+    if (dom) {
+      dom.remove()
+    }
+    window.LoadJsState = ''
+    window.getCLodop = null
+    setJsUrl(ip)
+    loadCLodop()
+  }
   if (LoadJsState == "complete") {
     if(window.getCLodop) {
       resolve(getCLodop())
@@ -224,7 +241,7 @@ function lodopExample() {
         }
       }
     }
-    var intervalId = setInterval(myFunc, 10);
+    var intervalId = setInterval(myFunc, 20);
   }
  })
 }

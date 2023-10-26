@@ -5,6 +5,7 @@ import {
   imageTempTohtml,
   strTempToValue,
   dateFormat,
+  isValidIP,
   htmlTempTohtml
 } from "./tools";
 
@@ -28,20 +29,12 @@ function setLicenses(licenseInfo) {
 /**
  * 获取打印机列表
  */
- async function getPrinters() {
-  const printerList = []
-  const LODOP = await getLodop();
-  const defaultPrinter = LODOP.GET_PRINTER_NAME(-1)
-  const counter = LODOP.GET_PRINTER_COUNT(); // 获取打印机个数
-  for (let i = 0; i < counter; i++) {
-    const name = LODOP.GET_PRINTER_NAME(i)
-    printerList.push({
-      value: i,
-      name,
-      isDefault: defaultPrinter === name
-    });
+ async function getPrinters(ip) {
+  if (ip && !isValidIP(ip)) {
+    throw new Error('IP地址格式错误！')
   }
-  return printerList;
+  const LODOP = await getLodop(ip || 'localhost');
+  return LODOP.Printers
 }
 
 function getStatusValue(ValueType, ValueIndex) {
@@ -60,11 +53,7 @@ function getStatusValue(ValueType, ValueIndex) {
  * @param {*Object} temp 打印模板
  * @param {*Array} data 打印数据
  */
-async function print(temp, data, config = {}) {
-  const defaultConfig = Object.assign({
-    printerName: -1,
-    copies: 1
-  }, config)
+async function print(temp, data, beforePrintMethod) {
   let LODOP = await _CreateLodop(
     temp.title,
     temp.width,
@@ -96,8 +85,7 @@ async function print(temp, data, config = {}) {
     };
   }
 
-  LODOP.SET_PRINTER_INDEXA(defaultConfig.printerName)
-  LODOP.SET_PRINT_COPIES(defaultConfig.copies)
+  beforePrintMethod && beforePrintMethod(LODOP)
 
   let flag = LODOP.PRINT();
   return flag;
@@ -178,7 +166,6 @@ async function _CreateLodop(
   left = 0
 ) {
   let LODOP = await getLodop();
-
   // 设置软件产品注册信息
   LODOP.SET_LICENSES(strCompanyName, strLicense, strLicenseA, strLicenseB);
 

@@ -131,3 +131,11 @@ export const htmlTempTohtml = (val, style) => {
       )
   return fmt
 }
+/**
+ * 验证IP地址合法性
+ * @param ip IP地址
+ */
+ export const isValidIP = (ip) => {
+  const reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+  return reg.test(ip)
+}
