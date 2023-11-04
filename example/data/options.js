@@ -9,9 +9,13 @@ const publicOptions = [
     name: ""
   },
   {
-    type: "braid-line",
-    isEdit: 1,
-    title: "直线",
+    type: "vertical-line",
+    title: "竖线",
+    name: ""
+  },
+  {
+    type: "horizontal-line",
+    title: "横线",
     name: ""
   },
   {
@@ -19,6 +23,8 @@ const publicOptions = [
     title: "当前时间",
     value: "{YYYY-MM-DD HH:mm:ss}",
     defaultValue: '',
+    width: 150,
+    height: 20,
     name: "_getNowTime"
   }
 ]
@@ -185,6 +191,11 @@ export const OutStockOptions = [
     ],
     tabelHtml: '',
     columnsAttr: [
+      {
+        title: "序号",
+        value: "{序号}",
+        name: "_seq"
+      },
       {
         title: '产品名称',
         value: '{产品名称}',
