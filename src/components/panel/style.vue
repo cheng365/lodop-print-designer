@@ -106,7 +106,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="线条类型">
-            <el-select :disabled="activeElement.type !== 'braid-line'" v-model="activeElement.style.lineType"
+            <el-select :disabled="!['horizontal-line', 'vertical-line'].includes(activeElement.type)" v-model="activeElement.style.lineType"
               class="min-input" @change="handleLineTypeChange">
               <el-option v-for="val in lineStyleArray" :key="val.value" :label="val.label" :value="val.value" />
             </el-select>

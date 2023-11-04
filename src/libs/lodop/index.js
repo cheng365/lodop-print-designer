@@ -249,7 +249,17 @@ function _AddPrintItem(LODOP, tempItem, pageIndex = 0) {
   }
   // 添加打印项
   switch (printItem.type) {
-    case "braid-line":
+    case "vertical-line":
+      LODOP.ADD_PRINT_LINE(
+        printItem.top,
+        printItem.left,
+        printItem.top + printItem.height,
+        printItem.left,
+        printItem.style.lineType,
+        printItem.style.FontSize
+      );
+      break;
+    case "horizontal-line":
       LODOP.ADD_PRINT_LINE(
         printItem.top,
         printItem.left,

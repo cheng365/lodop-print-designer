@@ -7,31 +7,30 @@
     minHeight: val.height + 'px',
     zIndex: val.style.zIndex,
     fontSize: val.style.FontSize + 'pt',
-    color: val.style.FontColor,
     textAlign: val.style.Alignment,
     fontWeight: val.style.Bold ? 'bold' : 'normal'
   }">
-    <div class="line-horizontal" :style="{ border: val.style.FontSize + 'px ' + val.style.type }"></div>
+    <div :style="{ borderLeft: val.style.FontSize + 'px ' + val.style.type, height: val.height + 'px' }"></div>
   </div>
 </template>
 
 <script>
-const WIDGET_NAME = 'braid-line'
+const WIDGET_NAME = 'vertical-line'
 
 export default {
   name: WIDGET_NAME,
   setting: {
     type: WIDGET_NAME,
-    isEdit: true,
+    isEdit: false,
     dragable: true, // 是否可拖拽
     resizable: true, // 尺寸是否可变
-    width: 120,
-    height: 40,
+    width: 10,
+    height: 120,
     left: 50,
     top: 0,
-    title: '横线',
-    value: '横线',
-    defaultValue: '横线',
+    title: '竖线',
+    value: '竖线',
+    defaultValue: '丨',
     name: '',
     style: {
       type: 'solid',
@@ -52,9 +51,5 @@ export default {
 .line-horizontal {
   width: 100%;
   margin-top: 4px;
-}
-
-.boder {
-  border: 1px solid;
 }
 </style>

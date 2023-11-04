@@ -4,7 +4,8 @@ import barCode from "./bar-code/index.vue";
 import table from "./table/index.vue";
 import image from "./image/index.vue";
 import html from "./html/index.vue";
-import line from "./line/index.vue";
+import verticalLine from "./line/vertical-line.vue";
+import horizontalLine from "./line/horizontal-line.vue";
 
 const install = function(Vue) {
   Vue.component(braidTxt.name, braidTxt);
@@ -12,7 +13,8 @@ const install = function(Vue) {
   Vue.component(table.name, table);
   Vue.component(image.name, image);
   Vue.component(html.name, html);
-  Vue.component(line.name, line);
+  Vue.component(verticalLine.name, verticalLine);
+  Vue.component(horizontalLine.name, horizontalLine);
 };
 
 const getWidgetsSetting = function() {
@@ -22,7 +24,8 @@ const getWidgetsSetting = function() {
     [table.name]: table.setting,
     [image.name]: image.setting,
     [html.name]: html.setting,
-    [line.name]: line.setting
+    [verticalLine.name]: verticalLine.setting,
+    [horizontalLine.name]: horizontalLine.setting
   };
 };
 export default {
