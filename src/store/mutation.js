@@ -58,6 +58,11 @@ export default {
     state.moving = false
   },
 
+  // 暂停移动元件
+  pauseMove(state, start) {
+    state.pauseMove = start
+  },
+
   // 移动元件
   move(state, track) {
     var target = state.activeElement

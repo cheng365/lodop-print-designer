@@ -23,7 +23,6 @@ export const tempToPrint = (temp, data) => {
  * @param data 表格数据
  */
 export const tableTempTohtml = (columns, data, style) => {
-
   // 表格全局样式
   let styleStr = 'text-align:' + style.Alignment + ';'
   styleStr += 'font-size:' + style.FontSize + 'pt;'
@@ -35,18 +34,17 @@ export const tableTempTohtml = (columns, data, style) => {
   // 解析表头
   html += '<thead><tr>'
   columns.forEach(column => {
-
-    if (column.name === '_seq') { // 序号列
-      html += '<th width="30">'
+    if (column.widthPercent) {
+      html += '<th width="'+column.widthPercent+'">'
     } else {
       html += '<th>'
     }
     html += column.title
     html += '</th>'
   })
+
   html += '</tr></thead>'
   html += '<tbody>'
-
   // 解析内容
   if (Array.isArray(data)) {
     data.forEach((item, idx) => {
@@ -99,7 +97,6 @@ export const htmlTempTohtml = (val, style) => {
   let html = '<span style=\'' + styleStr + '\'>'
   html += val
   html += '</span>'
-  // console.log(html)
   return html
 }
 /**

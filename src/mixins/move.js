@@ -25,16 +25,18 @@ export default {
 
     /**
      * 鼠标移动
-     * @param {*} e 
+     * @param {*} e
      */
     handlemousemove(e) {
-      e.stopPropagation()
-      e.preventDefault()
+      if (!this.$vptd.state.pauseMove) {
+        e.stopPropagation()
+        e.preventDefault()
 
-      this.$vptd.commit('move', {
-        x: e.pageX,
-        y: e.pageY
-      })
+        this.$vptd.commit('move', {
+          x: e.pageX,
+          y: e.pageY
+        })
+      }
     },
 
     /**

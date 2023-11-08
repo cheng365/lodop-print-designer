@@ -1,18 +1,35 @@
 <template>
-  <div class="widgets" :style="{
-    left: val.left + 'px',
-    top: val.top + 'px',
-    width: val.width + 'px',
-    height: val.height + 'px',
-    textAlign: val.style.Alignment,
-    fontSize: val.style.FontSize + 'pt',
-    color: val.style.FontColor,
-  }" style="position:absolute;overflow:hidden">
-    <table id="7758" border="1" width="100%" cellspacing="0" cellpadding="2"
-      style="border-collapse:collapse;font-size:12px;" bordercolor="#000000">
+  <div
+    class="widgets"
+    :style="{
+      left: val.left + 'px',
+      top: val.top + 'px',
+      width: val.width + 'px',
+      height: val.height + 'px',
+      textAlign: val.style.Alignment,
+      fontSize: val.style.FontSize + 'pt',
+      color: val.style.FontColor
+    }"
+    style="position: absolute; overflow: hidden"
+  >
+    <table
+      :id="tid"
+      border="1"
+      width="100%"
+      cellspacing="0"
+      cellpadding="2"
+      style="border-collapse: collapse; font-size: 12px"
+      bordercolor="#000000"
+    >
       <tr>
-        <th v-for="item in columns" :key="item.name" :width="item.name === '_seq' ? 40 : ''" contenteditable="true"
-          @blur="modifyTitle(item, $event)">
+        <th
+          v-for="item in columns"
+          :id="item.thid"
+          :key="item.name"
+          :width="setTableColWidth(item)"
+          contenteditable="true"
+          @blur="modifyTitle(item, $event)"
+        >
           {{ item.title }}
         </th>
         <!-- <th v-for="item in columns" :key="item.name" :width="item.name === '_seq' ? 40 : ''">{{ item.title }}</th> -->
@@ -25,6 +42,8 @@
 </template>
 
 <script>
+import { resizeTableCol, getUUID } from '../../../utils/tools.js'
+
 const WIDGET_NAME = 'braid-table'
 
 export default {
@@ -53,24 +72,75 @@ export default {
       FontColor: '#000000',
       BorderColor: '#000000',
       AutoHeight: false, // 高度自动（模板在该元素位置以下的元素都关联打印）
-      BottomMargin: 0, // 距离下边距
-    },
+      BottomMargin: 0 // 距离下边距
+    }
   },
   props: [
-    'val', // 文本对象
+    'val' // 文本对象
   ],
+  data() {
+    return {
+      tid: 'table-' + getUUID(8)
+    }
+  },
   computed: {
     // 去掉type='row'的数据
     columns() {
       let col = this.val.columns || []
+      for (const item of col) {
+        item.thid = 'thid-' + getUUID(6)
+      }
       return col
-    },
-  },
-  methods: {
-    modifyTitle(cur, e) {
-      cur.title = e.target.innerText
     }
   },
+  mounted() {
+    this.$nextTick(() => {
+      // 调整表格列宽
+      resizeTableCol(this.tid, (resizeTd) => {
+        this.$vptd.commit('pauseMove', resizeTd !== null)
+        if (resizeTd) {
+          // 实时保存列宽，用作保存后回显
+          const result = this.columns.find((item) => item.thid === resizeTd.id)
+          result['width'] = resizeTd.width
+        } else {
+          // 拖动结束
+          this.convertWidth()
+        }
+      })
+      this.convertWidth()
+    })
+  },
+  methods: {
+    // 将表格列宽由原来的px转换为百分比
+    convertWidth() {
+      // 获取表格的所有 th 元素
+      const thElements = document.querySelectorAll(`#${this.tid} th`)
+      // 循环遍历每个 th 元素
+      thElements.forEach((item, i) => {
+        // 获取原始宽度值（以像素为单位）
+        const originalWidth = item.offsetWidth
+
+        // 计算百分比值
+        const percentage = (originalWidth / item.parentElement.offsetWidth) * 100
+
+        // 将每个 th 元素的宽度设置为百分比
+        this.columns[i].widthPercent = percentage + '%'
+      })
+    },
+    modifyTitle(cur, e) {
+      cur.title = e.target.innerText
+    },
+    // 设置表格列宽
+    setTableColWidth(item) {
+      if (item.width) {
+        return item.width
+      } else {
+        if (item.name === '_seq') {
+          return 30
+        }
+      }
+      return ''
+    }
+  }
 }
 </script>
-

@@ -9,8 +9,8 @@ export default {
 
   originX: 0, // 选中元件的横向初始值
   originY: 0, // 选中元件的纵向初始值
-  startX: 0, // 鼠标摁下时的横坐标
-  startY: 0, // 鼠标摁下时的纵坐标
+  startX: 0, // 鼠标按下时的横坐标
+  startY: 0, // 鼠标按下时的纵坐标
   moving: false, // 是否正在移动元件（参考线仅在移动元件时显示）
 
   activeElement: getDefaultProps(), // 选中对象，要么是元件，要么是页面
