@@ -61,7 +61,10 @@ this.$lodop.previewTemp(temp);
 this.$lodop.setLicenses(licenseInfo);
 
 // 获取打印机列表，可根据IP获取远程电脑上的打印机
-this.$lodop.getPrinters();
+ip参数为选填，默认为本机127.0.0.1
+this.$lodop.getPrinters(ip).then(res=> {
+  console.log('打印机列表--->', res)
+})
 ```
 
 ## Attributes
@@ -115,6 +118,25 @@ tempValue 为打印模板对象， 对象中参数具体解析如下：
     defaultValue: "自定义文本"
   },
   {
+    type: "vertical-line",
+    title: "竖线",
+    name: ""
+  },
+  {
+    type: "horizontal-line",
+    title: "横线",
+    name: ""
+  },
+  {
+    type: "braid-txt",
+    title: "当前时间",
+    value: "{YYYY-MM-DD HH:mm:ss}",
+    defaultValue: '',
+    width: 150,
+    height: 20,
+    name: "_getNowTime"
+  },  
+  {
     type: "braid-txt",
     isEdit: false,
     title: "公司名称",
@@ -165,6 +187,11 @@ tempValue 为打印模板对象， 对象中参数具体解析如下：
     ],
     columnsAttr: [
       {
+        title: "序号",
+        value: "{序号}",
+        name: "_seq"
+      },
+      {
         title: "产品名称",
         value: "{产品名称}",
         name: "productName"
@@ -204,7 +231,7 @@ widgetOptions 为设计打印模板的打印项配置， 打印项有多种类�
 
 | 参数         | 说明                                        | 类型    | 可选值                                                        | 默认值 |
 | ------------ | ------------------------------------------- | ------- | ------------------------------------------------------------- | ------ |
-| type         | 模板类型                                    | String  | braid-txt / braid-table / braid-html / braid-image / bar-code | ——     |
+| type         | 模板类型                                    | String  | braid-txt / braid-table / braid-html / braid-image / bar-code / horizontal-line / vertical-line | ——     |
 | isEdit       | 是否可编辑                                  | Boolean | true / false                                                  | ——     |
 | dragable     | 是否可拖拽                                  | Boolean | true / false                                                  | true   |
 | resizable    | 尺寸是否可变                                | Boolean | true / false                                                  | true   |
@@ -238,7 +265,7 @@ widgetOptions 为设计打印模板的打印项配置， 打印项有多种类�
 
 | 参数         | 说明                                        | 类型    | 可选值                                                        | 默认值 |
 | ------------ | ------------------------------------------- | ------- | ------------------------------------------------------------- | ------ |
-| type         | 模板类型                                    | String  | braid-txt / braid-table / braid-html / braid-image / bar-code | ——     |
+| type         | 模板类型                                    | String  | braid-txt / braid-table / braid-html / braid-image / bar-code / horizontal-line / vertical-line | ——     |
 | isEdit       | 是否可编辑                                  | Boolean | true / false                                                  | false  |
 | dragable     | 是否可拖拽                                  | Boolean | true / false                                                  | true   |
 | resizable    | 尺寸是否可变                                | Boolean | true / false                                                  | true   |
@@ -266,7 +293,7 @@ widgetOptions 为设计打印模板的打印项配置， 打印项有多种类�
 
 | 参数         | 说明                                        | 类型    | 可选值                                                        | 默认值           |
 | ------------ | ------------------------------------------- | ------- | ------------------------------------------------------------- | ---------------- |
-| type         | 模板类型                                    | String  | braid-txt / braid-table / braid-html / braid-image / bar-code | ——               |
+| type         | 模板类型                                    | String  | braid-txt / braid-table / braid-html / braid-image / bar-code / horizontal-line / vertical-line | ——               |
 | isEdit       | 是否可编辑                                  | Boolean | true / false                                                  | false            |
 | dragable     | 是否可拖拽                                  | Boolean | true / false                                                  | true             |
 | resizable    | 尺寸是否可变                                | Boolean | true / false                                                  | true             |
@@ -296,7 +323,7 @@ widgetOptions 为设计打印模板的打印项配置， 打印项有多种类�
 
 | 参数         | 说明                                        | 类型    | 可选值                                                        | 默认值 |
 | ------------ | ------------------------------------------- | ------- | ------------------------------------------------------------- | ------ |
-| type         | 模板类型                                    | String  | braid-txt / braid-table / braid-html / braid-image / bar-code | ——     |
+| type         | 模板类型                                    | String  | braid-txt / braid-table / braid-html / braid-image / bar-code / horizontal-line / vertical-line | ——     |
 | isEdit       | 是否可编辑                                  | Boolean | true / false                                                  | false  |
 | dragable     | 是否可拖拽                                  | Boolean | true / false                                                  | true   |
 | resizable    | 尺寸是否可变                                | Boolean | true / false                                                  | true   |
@@ -338,7 +365,7 @@ widgetOptions 为设计打印模板的打印项配置， 打印项有多种类�
 
 | 参数         | 说明                                        | 类型    | 可选值                                                        | 默认值       |
 | ------------ | ------------------------------------------- | ------- | ------------------------------------------------------------- | ------------ |
-| type         | 模板类型                                    | String  | braid-txt / braid-table / braid-html / braid-image / bar-code | ——           |
+| type         | 模板类型                                    | String  | braid-txt / braid-table / braid-html / braid-image / bar-code / horizontal-line / vertical-line | ——           |
 | isEdit       | 是否可编辑                                  | Boolean | true / false                                                  | false        |
 | dragable     | 是否可拖拽                                  | Boolean | true / false                                                  | true         |
 | resizable    | 尺寸是否可变                                | Boolean | true / false                                                  | true         |
