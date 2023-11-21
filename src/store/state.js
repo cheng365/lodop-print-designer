@@ -22,6 +22,7 @@ export default {
     height: 550,
     pageWidth: 750,
     pageHeight: 550,
+    auxiliaryLine: true, // 辅助线
     tempItems: [], // 模板已选项
   },
   optionItems: [], // 可选项

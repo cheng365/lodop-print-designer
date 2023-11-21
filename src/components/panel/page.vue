@@ -50,6 +50,12 @@
           <span class="unit-text">(mm)</span>
         </el-form-item>
       </el-row>
+      <el-row>
+        <el-form-item label="辅助线">
+          <el-switch v-model="pageInfo.auxiliaryLine"
+            :active-value="true" :inactive-value="false"></el-switch>
+        </el-form-item>
+      </el-row>
     </el-form>
   </div>
 </template>

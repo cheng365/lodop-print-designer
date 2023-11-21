@@ -6,7 +6,7 @@
         width: page.width + 'px',
         backgroundImage: 'url('+backImg+')'
       }"
-      class="screen"
+      :class="['screen', page.auxiliaryLine ? 'auxiliary-line': '']"
     >
       <!-- 组件 -->
       <component
@@ -169,5 +169,10 @@ export default {
   box-shadow: 0 0 5px 1px #cccccc;
   background-color: #ffffff;
   background-repeat: no-repeat;
+}
+.auxiliary-line {
+  background-size: 5mm 5mm;
+  background-repeat: repeat;
+  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 3%, rgba(0, 0, 0, 0) 3%), linear-gradient(360deg, rgba(0, 0, 0, 0.1) 3%, rgba(0, 0, 0, 0) 3%) !important;
 }
 </style>
