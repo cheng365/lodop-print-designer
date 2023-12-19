@@ -112,6 +112,12 @@
             </el-select>
           </el-form-item>
         </el-col>
+        <el-col :span="12">
+          <el-form-item label="旋转">
+            <el-input-number :disabled="activeElement.style.Angle === undefined" v-model="activeElement.style.Angle"
+              controls-position="right" class="min-input"></el-input-number>
+          </el-form-item>
+        </el-col>
       </el-row>
     </el-form>
   </div>

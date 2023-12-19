@@ -14,6 +14,7 @@
       fontSize: val.style.FontSize + 'pt',
       color: val.style.FontColor,
       textAlign: val.style.Alignment,
+      transform: rotateDeg(val.style.Angle),
       fontWeight: val.style.Bold ? 'bold': 'normal'
     }"
   ></div>
@@ -54,8 +55,9 @@ export default {
       Italic: false, // 1代表斜体，0代表非斜体
       Underline: false, // 1代表有下划线，0代表无下划线
       Alignment: 'left', // 对齐方式
+      Angle: 0, // 设定纯文本打印项的旋转角度
       ItemType: 0, // 打印类型 0--普通项 1--页眉页脚 2--页号项 3--页数项 4--多页项
-    },
+    }
   },
   props: [
     'val', // 文本对象
@@ -69,6 +71,20 @@ export default {
         value: text,
       })
     },
+    // 因为lodop是逆时针旋转的，所以在此做个取反
+    rotateDeg(Angle) {
+      let rotate = 0
+      // 如果是正数，返回1；如果是负数，返回-1；如果是0，返回0；如果是-0，返回-0；如果是其他，返回NaN
+      const angle = Math.sign(Angle)
+      if (angle === 1) {
+        rotate = -Angle
+      }
+      if (angle === -1) {
+        // 使用 Math.abs() 函数将负数转换为正数
+        rotate = Math.abs(Angle)
+      }
+      return `rotate(${rotate}deg)`
+    }
   },
 }
 </script>
