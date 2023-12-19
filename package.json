@@ -1,7 +1,8 @@
 {
   "name": "lodop-print-designer",
   "version": "1.0.0",
-  "description": "一个基于Vue、ElementUi、Lodop的打印模板设计器。实现打印模板的设计、预览和打印功能。",
+  "homepage": "https://github.com/cheng365/lodop-print-designer#readme",
+  "description": "一个基于Vue2、ElementUi、Lodop的打印模板设计器。实现打印模板的设计、预览和打印功能。",
   "publish": true,
   "main": "lib/lodop-print-designer.umd.min.js",
   "files": [
@@ -31,6 +32,10 @@
     "last 2 versions",
     "not dead"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cheng365/lodop-print-designer.git"
+  },
   "keywords": [
     "lodop-print-designer"
   ],

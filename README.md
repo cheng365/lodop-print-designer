@@ -6,7 +6,7 @@ lodop-print-designer(基于[kr-print-designer](https://github.com/myliuxia/kr-pr
 由于kr-print-designer最后一次更新时间为2021年，因为我需要的一些功能原插件并没有，基于此我进行了二次开发。
 ## 简介
 
-一个基于 Vue、ElementUi、C-Lodop 的打印模板设计器。实现打印模板的设计、预览和打印功能。[示例](https://cheng365.github.io/demo/lodop-print-designer/index.html)
+一个基于 Vue2、ElementUi、C-Lodop 的打印模板设计器。实现打印模板的设计、预览和打印功能。[示例](https://cheng365.github.io/demo/lodop-print-designer/index.html)
 
 ## 安装
 
