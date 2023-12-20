@@ -96,6 +96,9 @@
           <div style="margin-top:10px">
             <el-button size="mini" type="success" @click="printPreview(2)">直接打印</el-button>
           </div>
+          <div style="margin-top:10px">
+            <el-button size="mini" type="warning" @click="printPreviewCustom">自由测试</el-button>
+          </div>
         </el-form-item>
       </el-form>
     </section>
@@ -257,6 +260,9 @@ export default {
           }
         }
       })
+    },
+    printPreviewCustom() {
+      this.$router.push({ path: '/testPrint' })
     },
     // 获取打印机列表
     getPrinters() {

@@ -3,6 +3,7 @@ import App from './App.vue'
 import vuePrintDesigner from '../src'
 import VueRouter from 'vue-router'
 import Designer from './page/designer.vue'
+import TestPrint from './page/testPrint.vue'
 import Index from './page/index.vue'
 import { outStockTemp } from './data/defaultTemp'
 
@@ -24,7 +25,8 @@ Vue.use(VueRouter)
 Vue.use(vuePrintDesigner)
 const routes = [
   { path: '/', component: Index },
-  { path: '/designer', component: Designer }
+  { path: '/designer', component: Designer },
+  { path: '/testPrint', component: TestPrint }
 ]
 const router = new VueRouter({
   routes
