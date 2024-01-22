@@ -58,6 +58,7 @@ async function print(temp, data, beforePrintMethod) {
     temp.title,
     temp.width,
     temp.height,
+    temp.intOrient,
     temp.pageWidth,
     temp.pageHeight
   );
@@ -101,6 +102,7 @@ async function preview(temp, data) {
     temp.title,
     temp.width,
     temp.height,
+    temp.intOrient,
     temp.pageWidth,
     temp.pageHeight
   );
@@ -134,6 +136,7 @@ async function previewTemp(temp) {
     temp.title,
     temp.width,
     temp.height,
+    temp.intOrient,
     temp.pageWidth,
     temp.pageHeight
   );
@@ -160,6 +163,7 @@ async function _CreateLodop(
   pageName,
   width,
   height,
+  intOrient = 1,
   pageWidth = 0,
   pageHeight = 0,
   top = 0,
@@ -171,12 +175,12 @@ async function _CreateLodop(
 
   LODOP.PRINT_INITA(top, left, width, height, pageName);
   LODOP.SET_PRINT_PAGESIZE(
-    1,
+    intOrient,
     pageWidth ? pageWidth + "mm" : 0,
     pageHeight ? pageHeight + "mm" : 0,
     ""
   );
-
+  LODOP.SET_SHOW_MODE('LANDSCAPE_DEFROTATED', 1); // 横向打印的预览默认旋转90度（正向显示）
   return LODOP;
 }
 
