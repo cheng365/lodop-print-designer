@@ -22,7 +22,7 @@ export const tempToPrint = (temp, data) => {
  * @param columns 表格列配置信息
  * @param data 表格数据
  */
-export const tableTempTohtml = (columns, data, style) => {
+export const tableTempTohtml = (columns, data, style, tableConfig) => {
   // 表格全局样式
   let styleStr = 'text-align:' + style.Alignment + ';'
   styleStr += 'font-size:' + style.FontSize + 'pt;'
@@ -63,7 +63,18 @@ export const tableTempTohtml = (columns, data, style) => {
       html += '</tr>'
     })
   }
-
+  // 解析表尾
+  if (tableConfig.showFooter) {
+    html += '<tr>'
+    tableConfig.lastTrConfig.forEach((config) => {
+      if (config.tdata) {
+        html += `<td><font tdata="${config.tdata}" format="${config.format}">##</font></td>`
+      } else {
+        html += `<td>${config.content}</td>`
+      }
+    })
+    html += '</tr>'
+  }
   html += '</tbody>'
   html += '</table>'
   return html

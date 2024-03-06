@@ -56,3 +56,18 @@ export const getLineStyle = () => [
   { label: "实线", value: 0, type: "solid" },
   { label: "虚线", value: 2, type: "dashed" }
 ];
+
+export const getStatisticType = () => [
+  { label: "求和", value: 'Sum' },
+  { label: "最大值", value: 'AllMax' },
+  { label: "最小值", value: 'AllMin' },
+];
+export const getFormatType = () => [
+  { label: "0", value: '0' },
+  { label: "0.00", value: '0.00' },
+  { label: "#.##", value: '#.##' },
+  { label: "#,##0.00", value: '#,##0.00' },
+  { label: "0.000E+00", value: '0.000E+00' },
+  { label: "大写金额", value: 'UpperMoney' },
+  { label: "中文数字", value: 'ChineseNum' },
+];

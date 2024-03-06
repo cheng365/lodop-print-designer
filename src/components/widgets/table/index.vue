@@ -20,6 +20,7 @@
       cellpadding="2"
       style="border-collapse: collapse; font-size: 12px"
       bordercolor="#000000"
+      :key="indexKey"
     >
       <tr>
         <th
@@ -36,6 +37,17 @@
       </tr>
       <tr>
         <td v-for="item in columns" :key="item.name">{{ item.value }}</td>
+      </tr>
+      <tr v-if="val.showFooter">
+        <td
+          v-for="(item, index) in val.lastTrConfig"
+          :contenteditable="true"
+          :key="item.name"
+          @click="handleColumn(index)"
+          @blur="contentBlur(item, $event)"
+        >
+          <template>{{ item.tdata ? '#' : item.content }}</template>
+        </td>
       </tr>
     </table>
   </div>
@@ -73,13 +85,24 @@ export default {
       BorderColor: '#000000',
       AutoHeight: false, // 高度自动（模板在该元素位置以下的元素都关联打印）
       BottomMargin: 0 // 距离下边距
-    }
+    },
+    tindex: 0,
+    showFooter: false
   },
   props: [
     'val' // 文本对象
   ],
+  watch: {
+    'val.lastTrConfig': {
+      handler() {
+        this.indexKey++
+      },
+      deep: true // 深度监听
+    }
+  },
   data() {
     return {
+      indexKey: 1,
       tid: 'table-' + getUUID(8)
     }
   },
@@ -91,7 +114,10 @@ export default {
         item.thid = 'thid-' + getUUID(6)
       }
       return col
-    }
+    },
+    activeElement() {
+      return this.$vptd.state.activeElement
+    },
   },
   mounted() {
     this.$nextTick(() => {
@@ -130,6 +156,9 @@ export default {
     modifyTitle(cur, e) {
       cur.title = e.target.innerText
     },
+    handleColumn(index) {
+      this.activeElement.tindex = index
+    },
     // 设置表格列宽
     setTableColWidth(item) {
       if (item.width) {
@@ -140,7 +169,11 @@ export default {
         }
       }
       return ''
-    }
+    },
+    contentBlur(item, e) {
+      item.content = e.target.innerHTML
+      e.target.innerHTML = item.content
+    },
   }
 }
 </script>

@@ -319,7 +319,8 @@ function _AddPrintItem(LODOP, tempItem, pageIndex = 0) {
         let html = tableTempTohtml(
           printItem.columns ? printItem.columns : [],
           printItem.defaultValue,
-          printItem.style
+          printItem.style,
+          printItem
         );
         if (lodopStyle.AutoHeight) {
           LODOP.ADD_PRINT_TABLE(
