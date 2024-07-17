@@ -242,7 +242,7 @@ widgetOptions 为设计打印模板的打印项配置， 打印项有多种类�
 | title        | 打印项名称                                  | String  | ——                                                            | ——     |
 | value        | 打印项内容                                  | String  | ——                                                            | ——     |
 | defaultValue | 打印项默认内容                              | String  | ——                                                            | ——     |
-| name         | 动态打印项数据名称（对应打印数据 key-name） | String  | ——                                                            | ''     |
+| name         | 动态打印项数据名称（对应打印数据 key-name） | String  | 支持路径嵌套 'a.b.c' | ''     |
 | lodopStyle   | LODOP 默认打印项样式                        | Object  | ——                                                            | {}     |
 | style        | 打印项样式                                  | Object  | ——                                                            | {}     |
 
