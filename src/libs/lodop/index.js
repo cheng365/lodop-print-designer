@@ -3,6 +3,7 @@ import cloneDeep from "lodash/cloneDeep";
 import {
   tableTempTohtml,
   imageTempTohtml,
+  getNestedValue,
   strTempToValue,
   dateFormat,
   isValidIP,
@@ -222,7 +223,7 @@ function _TempParser(tempItem, data) {
           item.value = dateFormat('yyyy-MM-dd hh:mm:ss');
         } else {
           if (item.name) {
-            item.defaultValue = dataItem[item.name];
+            item.defaultValue = getNestedValue(dataItem, item.name);
             item.value = strTempToValue(item.value, item.defaultValue);
           }
         }

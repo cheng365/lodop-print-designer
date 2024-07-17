@@ -100,6 +100,20 @@ export const strTempToValue = (str, value) => {
   let reg = /({[^}^{]*})/g
   return str.replace(reg, value || '')
 }
+/**
+ * 获取嵌套对象中的值
+ *
+ * 该函数通过一个字符串路径来访问嵌套对象的深层属性。路径中的每个点（.）表示一个嵌套级别
+ * 例如，对于对象 {a: {b: {c: 42}})，路径 'a.b.c' 将返回值 42
+ *
+ * @param {Object} obj - 被查询的嵌套对象
+ * @param {string} path - 访问嵌套属性的字符串路径
+ * @returns {any} - 路径指向的值，如果路径不存在或对象为null/undefined，则返回undefined
+ */
+export const getNestedValue = (obj, path) => {
+  // 使用点分割路径，并遍历每个部分来深入对象
+  return path.split('.').reduce((o, p) => o && o[p], obj)
+}
 export const htmlTempTohtml = (val, style) => {
   // 表格全局样式
   let styleStr = 'text-align:' + style.Alignment + ';'
